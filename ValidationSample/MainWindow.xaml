@@ -1,0 +1,40 @@
+﻿<Window x:Class="ValidationSample.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ValidationSample"
+        xmlns:behaviors="clr-namespace:ValidationSample.Behaviors"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="350" Width="525">    
+    <Grid>
+        <Grid.Resources>
+            <Style TargetType="TabItem">                
+                <Style.Triggers>
+                    <Trigger Property="behaviors:TabItemValidation.IsTabValid" Value="True">
+                        <Setter Property="Background" Value="LightBlue" />
+                    </Trigger>
+                    <Trigger Property="behaviors:TabItemValidation.IsTabValid" Value="False">
+                        <Setter Property="Background" Value="Red" />
+                    </Trigger>                    
+                </Style.Triggers>
+            </Style>
+        </Grid.Resources>
+        <StackPanel>
+        <TabControl>            
+            <TabItem Name="TabItem1" Header="Item1" behaviors:TabItemValidation.ActivateValidation="True">
+                <AdornerDecorator>
+                    <TextBox Text="{Binding TestText1, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged, NotifyOnValidationError=True}" HorizontalAlignment="Left" VerticalAlignment="Top" Width="100"/>
+                </AdornerDecorator>
+            </TabItem>
+            <TabItem Name="TabItem2" Header="Item2" behaviors:TabItemValidation.ActivateValidation="True">
+                <AdornerDecorator>
+                    <TextBox Text="{Binding TestText2, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged, NotifyOnValidationError=True}" HorizontalAlignment="Left" VerticalAlignment="Top" Width="100"/>
+                </AdornerDecorator>
+            </TabItem>
+            <TabItem Header="Item3"/>
+        </TabControl>
+        <Button Click="Button_Click" Width="100" Height="20" Content="Add data in tabs"/>
+        </StackPanel>        
+    </Grid>
+</Window>
